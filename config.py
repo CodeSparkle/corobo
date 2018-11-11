@@ -85,24 +85,54 @@ if BACKEND == 'Text':
     BOT_ADMINS = ('@localhost', )
 
 IGNORE_USERNAMES = os.environ.get("IGNORE_USERNAMES",
-                                  'co-robo coala-bot').split()
+                                  'co-robo coala-bot '
+                                  'from-somewhere-else').split()
 
 DIVERT_TO_PRIVATE = ('help', )
 
-ROOMS_TO_JOIN = (
-    'coala/coala',
-    'coala/coala/offtopic',
-    'coala/cobot-test',
-    'coala/corobo',
-    'coala/devops',
-    'coala/community',
-    'coala/coala/gsoc',
-    'coala/coala/maintainers',
-    'coala/coala-bears',
-    'coala/bearship',
-    'coala/gci',
-    'coala/cobot'
-)
+ROOMS_TO_JOIN = [
+    'coala',
+    'coala-bears',
+    'corobo',
+    'depman',
+    'ast',
+    'gci',
+]
+
+if BACKEND == 'Gitter':
+    ROOMS_TO_JOIN += [
+        'aspects',
+        'bearship',
+        'coala',
+        'coala/artwork-corner',
+        'coala/gsoc',
+        'coala/maintainers',
+        'coala/offtopic',
+        'coala/workshops',
+        'cobot',
+        'cobot-test',
+        'community',
+        'community',
+        'conferences',
+        'devops',
+        'documentation',
+        'editor-plugins',
+        'freelancers',
+        'performance',
+    ]
+elif BACKEND == 'Zulip':
+    ROOMS_TO_JOIN += [
+        'maintainers',
+        'gci-mentors-2018',
+        'gitmate',
+        'gsoc',
+        'moban',
+        'test',
+        'zulip',
+    ]
+
+if BACKEND == 'Gitter':
+    ROOMS_TO_JOIN = ['coala/' + item for item in ROOMS_TO_JOIN]
 
 CHATROOM_PRESENCE = os.environ.get('ROOMS', '').split() or ROOMS_TO_JOIN
 
